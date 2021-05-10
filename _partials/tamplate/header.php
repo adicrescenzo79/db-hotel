@@ -14,3 +14,5 @@
   <body>
     <div id="root">
       <p>{{message}}</p>
+
+      <p>CIAO</p>
