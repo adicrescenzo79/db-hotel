@@ -7,7 +7,7 @@
     $id = $_GET['id'];
     $result = [];
 
-    $stmt = $conn->prepare("SELCT * FROM stanze WHERE id = ?");
+    $stmt = $conn->prepare("SELECT * FROM stanze WHERE id = ?");
     $stmt->bind_param("i", $id);
 
     $stmt->execute();

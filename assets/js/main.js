@@ -7,39 +7,37 @@
   \************************/
 /***/ (() => {
 
-// SCOMMENTARE SE SI USA JQUERY
-// $(document).ready(function(){
-//
-// });
-// METODO JQUERY PER LA RICHIESTA DI API
-// $.ajax(
-// {
-// url: "https://flynn.boolean.careers/exercises/api/random/boolean",
-// method: "GET",
-// success: function (data, stato) {
-// $("#risultati").html(data);
-// },
-// error: function (richiesta, stato, errori) {
-// alert("E' avvenuto un errore. " + errore);
-// }
-// }
-// );
-// SCOMMENTARE SE SI USA VUE
 Vue.config.devtools = true;
 var app = new Vue({
   el: '#root',
   data: {
-    message: 'Hello Vue!'
+    message: 'Hello Vue!',
+    stanze: [],
+    roomIndex: '',
+    room: ''
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('http://localhost/db-hotel/partials/api/stanze.php').then(function (response) {
+      var result = response.data.response;
+      _this.stanze = result;
+    })["catch"](function (error) {// console.log(error);
+    });
+  },
+  methods: {
+    roomSelect: function roomSelect(i) {
+      var _this2 = this;
+
+      this.roomIndex = i;
+      axios.get("http://localhost/db-hotel/partials/api/stanze.php?id=".concat(this.roomIndex)).then(function (response) {
+        var result1 = response.data.response[0];
+        _this2.room = result1;
+      })["catch"](function (error) {// console.log(error);
+      });
+    }
   }
 }); // METODO VUE PER LA RICHIESTA DI API
-// axios
-// .get('https://flynn.boolean.careers/exercises/api/random/boolean')
-// .then(function (response) {
-//   const result = response.data;
-// })
-// .catch((error) => {
-//   console.log(error);
-// });
 
 /***/ }),
 
